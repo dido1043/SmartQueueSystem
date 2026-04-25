@@ -10,4 +10,8 @@
     <ProjectReference Include="../Auth.Application/Auth.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data/DTO/" />
+  </ItemGroup>
+
 </Project>
