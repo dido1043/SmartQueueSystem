@@ -1,4 +1,4 @@
-﻿namespace Queue;
+﻿namespace Auth.Domain;
 
 public class Class1
 {
