@@ -21,6 +21,11 @@
   <ItemGroup>
     <ProjectReference Include="../Modules/Auth/Auth.Application/Auth.Application.csproj" />
     <ProjectReference Include="../Modules/Auth/Auth.Domain/Auth.Domain.csproj" />
+    <ProjectReference Include="..\Modules\Auth\Auth.Infrastructure\Auth.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controller/" />
   </ItemGroup>
 
 </Project>
