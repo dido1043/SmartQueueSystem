@@ -7,11 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Auth.Application/Auth.Application.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.9" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data/DTO/" />
-  </ItemGroup>
+  
 
 </Project>

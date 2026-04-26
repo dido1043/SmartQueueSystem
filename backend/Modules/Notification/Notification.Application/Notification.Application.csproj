@@ -7,6 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../../SmartQueue.Api/SmartQueue.Api.csproj" />
+    <ProjectReference Include="../Notification.Domain/Notification.Domain.csproj" />
   </ItemGroup>
 </Project>

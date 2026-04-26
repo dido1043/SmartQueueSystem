@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../../SmartQueue.Api/SmartQueue.Api.csproj" />
+    <ProjectReference Include="../Auth.Domain/Auth.Domain.csproj" />
   </ItemGroup>
+
+  
 
 </Project>
