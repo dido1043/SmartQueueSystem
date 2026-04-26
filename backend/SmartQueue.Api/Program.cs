@@ -1,5 +1,7 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Auth.Domain.Data;
 using Auth.Application.Repository;
 using Auth.Application.Interface;
@@ -36,6 +38,20 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddDbContext<AuthDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+    })
+    .AddCookie()
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+        options.CallbackPath = "/signin-google"; 
+    });
+
 var app = builder.Build();
 
 // Enable Swagger only in Development
@@ -44,6 +60,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// only redirect to HTTPS when not in Development
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 app.UseHttpsRedirection();
 

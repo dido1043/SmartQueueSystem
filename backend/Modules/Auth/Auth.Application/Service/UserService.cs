@@ -64,5 +64,39 @@ public class UserService
 
         return response;
     }
+    public async Task<LoginResponseDto> LoginOrRegisterGoogleAsync(
+           string email,
+           string name,
+           string providerKey,
+           CancellationToken ct = default)
+    {
+        _ = providerKey; // keep for future provider-link table (AspNetUserLogins/custom table)
 
+        var user = await _userRepository.GetByEmailAsync(email, ct);
+
+        if (user is null)
+        {
+            user = new User
+            {
+                Id = Guid.NewGuid(),
+                Name = name,
+                Email = email,
+                UserName = email,
+                EmailConfirmed = true,
+                Role = default,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(Guid.NewGuid().ToString("N")) // add
+            };
+
+            await _userRepository.AddAsync(user, ct);
+            await _userRepository.SaveChangesAsync(ct);
+        }
+
+        return new LoginResponseDto
+        {
+            AccessToken = _jwtTokenService.GenerateAccessToken(user),
+            Expiration = _jwtTokenService.GetExpirationUtc(),
+            RefreshToken = _jwtTokenService.GenerateRefreshToken(),
+            UserRole = user.Role.ToString()
+        };
+    }
 }
