@@ -6,8 +6,21 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup> 
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="../Auth.Domain/Auth.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTO/" />
+    <Folder Include="DTO/Request/" />
+    <Folder Include="DTO/Response/" />
+    <Folder Include="Interface/" />
+    <Folder Include="Repository/" />
+    <Folder Include="Service/" />
   </ItemGroup>
 
   

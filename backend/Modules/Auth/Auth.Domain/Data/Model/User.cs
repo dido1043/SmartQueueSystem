@@ -1,4 +1,3 @@
-using System;
 using Auth.Domain.Data.Enum;
 using Microsoft.AspNetCore.Identity;
 namespace Auth.Domain.Data.Model;
