@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: smartqueue-db
+    environment:
+      POSTGRES_DB: smartqueue
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: smartqueue-api
+    env_file:
+      - ./SmartQueue.Api/.env
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:5012
+      ConnectionStrings__DefaultConnection: Host=db;Port=5432;Database=smartqueue;Username=postgres;Password=postgres
+    ports:
+      - "5012:5012"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
