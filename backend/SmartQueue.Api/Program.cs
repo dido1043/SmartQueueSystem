@@ -49,10 +49,22 @@ builder.Services
     {
         options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
         options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
-        options.CallbackPath = "/signin-google"; 
+        options.CallbackPath = "/signin-google";
     });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontendPolicy", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5174")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 var app = builder.Build();
+
+app.UseCors("FrontendPolicy");
 
 // Enable Swagger only in Development
 if (app.Environment.IsDevelopment())
