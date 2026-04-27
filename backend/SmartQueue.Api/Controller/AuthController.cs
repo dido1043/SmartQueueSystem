@@ -23,7 +23,14 @@ namespace SmartQueue.Api.Controller
             _userService = userService;
             _configuration = configuration;
         }
-
+        [AllowAnonymous]
+        [HttpGet("user/{id}")]
+        public async Task<IActionResult> GetUserById([FromRoute] Guid id)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+            if (user is null) return NotFound();
+            return Ok(user);
+        }
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser([FromBody] UserDto userDto)
@@ -87,7 +94,8 @@ namespace SmartQueue.Api.Controller
                 ["accessToken"] = result.AccessToken,
                 ["expiration"] = result.Expiration.ToString("O"),
                 ["refreshToken"] = result.RefreshToken,
-                ["userRole"] = result.UserRole
+                ["userRole"] = result.UserRole, 
+                ["UserId"] = result.UserId.ToString()
             });
 
             return Redirect(redirectUrl);

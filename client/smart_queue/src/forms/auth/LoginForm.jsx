@@ -30,7 +30,8 @@ function LoginForm() {
             accessToken: authData?.accessToken || '',
             expiration: authData?.expiration || '',
             refreshToken: authData?.refreshToken || '',
-            userRole: authData?.userRole || ''
+            userRole: authData?.userRole || '',
+            userId: authData?.userId || ''
         };
 
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
@@ -43,6 +44,7 @@ function LoginForm() {
         const expiration = params.get("expiration");
         const refreshToken = params.get("refreshToken");
         const userRole = params.get("userRole");
+        const userId = params.get("UserId");
 
         if (!accessToken) return false;
 
@@ -50,7 +52,8 @@ function LoginForm() {
             accessToken,
             expiration,
             refreshToken,
-            userRole
+            userRole,
+            userId
         };
 
         saveUserInfo(responseJson);

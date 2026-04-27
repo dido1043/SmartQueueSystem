@@ -59,7 +59,8 @@ public class UserService
             AccessToken = _jwtTokenService.GenerateAccessToken(user),
             Expiration = _jwtTokenService.GetExpirationUtc(),
             RefreshToken = _jwtTokenService.GenerateRefreshToken(),
-            UserRole = user.Role.ToString()
+            UserRole = user.Role.ToString(),
+            UserId = user.Id
         };
 
         return response;
@@ -96,7 +97,8 @@ public class UserService
             AccessToken = _jwtTokenService.GenerateAccessToken(user),
             Expiration = _jwtTokenService.GetExpirationUtc(),
             RefreshToken = _jwtTokenService.GenerateRefreshToken(),
-            UserRole = user.Role.ToString()
+            UserRole = user.Role.ToString(),
+            UserId = user.Id
         };
     }
 }
