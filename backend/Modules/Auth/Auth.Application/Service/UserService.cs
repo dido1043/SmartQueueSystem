@@ -84,7 +84,7 @@ public class UserService
                 UserName = email,
                 EmailConfirmed = true,
                 Role = default,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(Guid.NewGuid().ToString("N")) // add
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(Guid.NewGuid().ToString("N"))
             };
 
             await _userRepository.AddAsync(user, ct);
