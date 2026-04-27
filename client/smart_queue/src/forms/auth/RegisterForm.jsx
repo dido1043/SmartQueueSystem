@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -26,6 +26,45 @@ function RegisterForm() {
         status: 'Success',
         message: 'Successful register!'
     })
+    const saveUserInfo = (authData) => {
+        const userInfo = {
+            accessToken: authData?.accessToken || '',
+            expiration: authData?.expiration || '',
+            refreshToken: authData?.refreshToken || '',
+            userRole: authData?.userRole || ''
+        };
+
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    };
+
+    const persistGoogleAuthResponse = () => {
+        const params = new URLSearchParams(window.location.search);
+
+        const accessToken = params.get("accessToken");
+        const expiration = params.get("expiration");
+        const refreshToken = params.get("refreshToken");
+        const userRole = params.get("userRole");
+
+        if (!accessToken) return false;
+
+        const responseJson = {
+            accessToken,
+            expiration,
+            refreshToken,
+            userRole
+        };
+
+        saveUserInfo(responseJson);
+
+        window.history.replaceState({}, document.title, window.location.pathname);
+        return true;
+    };
+
+    useEffect(() => {
+        if (persistGoogleAuthResponse()) {
+            navigate('/');
+        }
+    }, [navigate]);
 
     const handleChange = (e) => {
         const name = e.target.name
@@ -73,6 +112,16 @@ function RegisterForm() {
         });
     };
 
+    const handleGoogleRegister = (e) => {
+        e.preventDefault();
+        if (persistGoogleAuthResponse()) {
+            navigate('/');
+            return;
+        }
+
+        const returnUrl = encodeURIComponent(`${window.location.origin}/register`);
+        window.location.href = `${apiUrl}/api/Auth/google-login?returnUrl=${returnUrl}`;
+    };
     return (
         <div
             style={{
@@ -209,12 +258,30 @@ function RegisterForm() {
                         border: "none",
                         borderRadius: "8px",
                         background: "#2563eb",
+                        marginBottom: "1rem",
                         color: "#fff",
                         cursor: "pointer",
                         fontWeight: 600
                     }}
                 >
                     Register
+                </button>
+
+                <button
+                    type="button"
+                    style={{
+                        width: "100%",
+                        padding: "10px 14px",
+                        border: "none",
+                        borderRadius: "8px",
+                        background: "#5c8ef9ff",
+                        color: "#fff",
+                        cursor: "pointer",
+                        fontWeight: 600
+                    }}
+                    onClick={handleGoogleRegister}
+                >
+                    Register with Google
                 </button>
             </form>
         </div>
