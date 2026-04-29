@@ -22,11 +22,17 @@
   <ItemGroup>
     <ProjectReference Include="../Modules/Auth/Auth.Application/Auth.Application.csproj" />
     <ProjectReference Include="../Modules/Auth/Auth.Domain/Auth.Domain.csproj" />
-    <ProjectReference Include="..\Modules\Auth\Auth.Infrastructure\Auth.Infrastructure.csproj" />
+    <ProjectReference Include="../Modules/Auth/Auth.Infrastructure/Auth.Infrastructure.csproj" />
 
-    <ProjectReference Include="../Booking.Application/Booking.Application.csproj" />
-    <ProjectReference Include="../Booking.Domain/Booking.Domain.csproj" />
-    <ProjectReference Include="../Booking.Infrastructure/Booking.Infrastructure.csproj" />
+    <ProjectReference Include="../Modules/Booking/Booking.Application/Booking.Application.csproj" />
+    <ProjectReference Include="../Modules/Booking/Booking.Domain/Booking.Domain.csproj" />
+    <ProjectReference Include="../Modules/Booking/Booking.Infrastructure/Booking.Infrastructure.csproj" />
+
+    <ProjectReference Include="../Modules/Business/Business.Application/Business.Application.csproj" />
+    <ProjectReference Include="../Modules/Business/Business.Domain/Business.Domain.csproj" />
+    <ProjectReference Include="../Modules/Business/Business.Infrastructure/Business.Infrastructure.csproj" />
+
+
   </ItemGroup>
 
   <ItemGroup>

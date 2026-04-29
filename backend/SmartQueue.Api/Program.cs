@@ -7,6 +7,8 @@ using Auth.Application.Repository;
 using Auth.Application.Interface;
 using Auth.Application.Service;
 using Auth.Infrastructure.Repository;
+using Business.Domain.Data;
+using Booking.Domain.Data;
 
 var localEnvPath = Path.Combine(Directory.GetCurrentDirectory(), ".env");
 var parentEnvPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", ".env"));
@@ -36,6 +38,12 @@ builder.Services.AddScoped<UserService>();
 
 
 builder.Services.AddDbContext<AuthDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDbContext<BusinessDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDbContext<BookingDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services

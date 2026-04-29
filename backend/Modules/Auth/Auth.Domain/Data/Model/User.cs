@@ -1,9 +1,11 @@
 using Auth.Domain.Data.Enum;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 namespace Auth.Domain.Data.Model;
 
 public class User: IdentityUser<Guid>
 {
+    [Required]
     public string Name { get; set; } = string.Empty;
     public UserRole Role { get; set; }
 
