@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  
+  <ItemGroup>
+    <Folder Include="Data/" />
+    <Folder Include="Data/Enum/" />
+    <Folder Include="Data/Model/" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
+  </ItemGroup>
+
 </Project>

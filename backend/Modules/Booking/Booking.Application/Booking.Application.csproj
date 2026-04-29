@@ -10,4 +10,11 @@
     <ProjectReference Include="../Booking.Domain/Booking.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO/" />
+    <Folder Include="Interface/" />
+    <Folder Include="Repository/" />
+    <Folder Include="Service/" />
+  </ItemGroup>
+
 </Project>
