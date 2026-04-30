@@ -22,7 +22,10 @@ public class UserRepository : IUserRepository
     {
         return _context.Users.FirstOrDefaultAsync(u => u.Email == email, ct);
     }
-
+    public Task<User?> GetByNameAsync(string name, CancellationToken ct = default)
+    {
+        return _context.Users.FirstOrDefaultAsync(u => u.Name == name, ct);
+    }
     public Task<bool> ExistsByEmailAsync(string email, CancellationToken ct = default)
     {
         return _context.Users.AnyAsync(u => u.Email == email, ct);
